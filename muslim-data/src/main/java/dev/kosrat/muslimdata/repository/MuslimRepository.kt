@@ -45,26 +45,31 @@ class MuslimRepository(context: Context) : Repository {
      */
     override suspend fun getPrayerTimes(
         location: Location, date: Date, attribute: PrayerAttribute
-    ): PrayerTime {
-        val prayerTime: PrayerTime
-        if (location.hasFixedPrayerTime) {
-            val fixedPrayer = muslimDb.muslimDataDao.getPrayerTimes(
-                location.prayerDependentId ?: location.id, date.formatToDBDate()
-            )
-            prayerTime = PrayerTime(
-                fixedPrayer.fajr.toDate(date),
-                fixedPrayer.sunrise.toDate(date),
-                fixedPrayer.dhuhr.toDate(date),
-                fixedPrayer.asr.toDate(date),
-                fixedPrayer.maghrib.toDate(date),
-                fixedPrayer.isha.toDate(date)
-            )
-            prayerTime.adjustDST()
-        } else {
-            prayerTime = CalculatedPrayerTime(attribute).getPrayerTimes(location, date)
+    ): PrayerTime? {
+        try {
+            val prayerTime: PrayerTime?
+            if (location.hasFixedPrayerTime) {
+                val fixedPrayer = muslimDb.muslimDataDao.getPrayerTimes(
+                    location.prayerDependentId ?: location.id, date.formatToDBDate()
+                )
+                prayerTime = PrayerTime(
+                    fixedPrayer.fajr.toDate(date),
+                    fixedPrayer.sunrise.toDate(date),
+                    fixedPrayer.dhuhr.toDate(date),
+                    fixedPrayer.asr.toDate(date),
+                    fixedPrayer.maghrib.toDate(date),
+                    fixedPrayer.isha.toDate(date)
+                )
+                prayerTime.adjustDST()
+            } else {
+                prayerTime = CalculatedPrayerTime(attribute).getPrayerTimes(location, date)
+            }
+            prayerTime.applyOffset(attribute.offset)
+            return prayerTime
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return null
         }
-        prayerTime.applyOffset(attribute.offset)
-        return prayerTime
     }
 
     /**
