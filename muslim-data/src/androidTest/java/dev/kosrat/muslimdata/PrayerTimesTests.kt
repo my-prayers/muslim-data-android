@@ -67,7 +67,7 @@ class PrayerTimesTests {
         val prayer = MuslimRepository(context).getPrayerTimes(makkah, date, attributes)
 
         Assert.assertNotNull(prayer)
-        val stringPrayer = prayer.formatPrayerTime(TimeFormat.TIME_24)
+        val stringPrayer = prayer!!.formatPrayerTime(TimeFormat.TIME_24)
         Assert.assertEquals(stringPrayer[0], "04:59")
         Assert.assertEquals(stringPrayer[1], "06:15")
         Assert.assertEquals(stringPrayer[2], "12:09")

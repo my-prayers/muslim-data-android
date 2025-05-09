@@ -22,7 +22,7 @@ interface Repository {
         location: Location,
         date: Date,
         attribute: PrayerAttribute
-    ): PrayerTime
+    ): PrayerTime?
 
     suspend fun getNamesOfAllah(language: Language): List<NameOfAllah>
 
