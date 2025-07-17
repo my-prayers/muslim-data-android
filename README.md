@@ -29,7 +29,7 @@ The other platform libraries share the same concepts and data structure, making 
 ## Installation
 
 ```
-implementation 'dev.kosrat:muslimdata:2.6.0'
+implementation 'dev.kosrat:muslimdata:2.7.1'
 ```
 
 ## Migration Guide
