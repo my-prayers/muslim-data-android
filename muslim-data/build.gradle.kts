@@ -10,7 +10,7 @@ apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
 android {
     namespace = "dev.kosrat.muslimdata"
 
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         minSdk = 21
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -40,7 +40,7 @@ android {
         }
     }
 
-    testOptions.targetSdk = 35
+    testOptions.targetSdk = 36
 }
 
 
@@ -51,10 +51,10 @@ dependencies {
     implementation("androidx.core:core-ktx:1.16.0")
 
     // Androidx
-    implementation("androidx.room:room-runtime:2.7.1")
+    implementation("androidx.room:room-runtime:2.7.2")
     implementation("androidx.preference:preference-ktx:1.2.1")
-    ksp("androidx.room:room-compiler:2.7.1")
-    implementation("androidx.room:room-ktx:2.7.1")
+    ksp("androidx.room:room-compiler:2.7.2")
+    implementation("androidx.room:room-ktx:2.7.2")
 
     // Tests
     testImplementation("junit:junit:4.13.2")
